@@ -1,3 +1,6 @@
+const fs = require("fs");
+const path = require("path");
+
 exports.defaultErrorHandling = (e, next) => {
 	if (!e.statusCode) {
 		e.statusCode === 500;
@@ -21,4 +24,9 @@ exports.unauthorized = () => {
 	const error = new Error("Not authorized!");
 	error.statusCode = 403;
 	throw error;
+};
+
+exports.clearImage = filePath => {
+	filePath = path.join(__dirname, "..", filePath);
+	fs.unlink(filePath, err => console.log(err));
 };
